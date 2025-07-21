@@ -1,6 +1,6 @@
 [build]
-  publish = "public" # Your frontend publish directory
-  functions = "netlify/functions" # Tells Netlify where to find your functions
+  publish = "public"
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/api/*"
