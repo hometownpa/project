@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hometown Bank - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="bank-logo header-logo">
+                    <img src="https://i.imgur.com/YmC3kg3.png" alt="Hometown Bank Logo">
+                </div>
+            </div>
+            <h2 class="dashboard-title">Admin Dashboard</h2>
+            <div class="header-right">
+            <span class="admin-name" id="adminName">Welomce, Admin!</span>
+                <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </header>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="bank-logo sidebar-logo">
+                    <img src="https://i.imgur.com/YmC3kg3.png" alt="Hometown Bank Logo">
+                </div>
+                <span>Hometown Bank Admin</span>
+            </div>
+            <nav class="sidebar-nav">
+    <ul>
+        <li class="active"><a href="#" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard Home</a></li>
+        <li><a href="#" data-section="create-user-account"><i class="fas fa-user-plus"></i> Create User Account</a></li>
+        <li><a href="#" data-section="manage-users"><i class="fas fa-users"></i> Manage User Account</a></li>
+        <li><a href="#" data-section="manage-funds"><i class="fas fa-money-bill-transfer"></i> Manage User Funds</a></li>
+        <li><a href="#" data-section="manage-user-status"><i class="fas fa-user-check"></i> Manage User Account Status</a></li>
+        <li><a href="#" data-section="user-transaction-update"><i class="fas fa-exchange-alt"></i> User Transaction Update</a></li>
+        <li><a href="#" data-section="generate-mock-transaction"><i class="fas fa-flask"></i> Generate Mock Transaction</a></li>
+        <li><a href="#" data-section="generate-bank-card"><i class="fas fa-credit-card"></i> Generate Bank Card</a></li>
+        <li><a href="#" data-section="manage-user-transfer-pin"><i class="fas fa-key"></i> Manage User Transfer PIN</a></li> 
+        <li><a href="#" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</nav>
+        </aside>
+
+        <main class="main-content" id="mainContent">
+            <section id="dashboard" class="dashboard-section">
+                <h3>Dashboard Overview</h3>
+                <p>Welcome to the Hometown Bank Admin Panel. Here you can manage users, accounts, transactions, and more.</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Total Users</h4>
+                        <p class="stat-value">1,234</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Active Accounts</h4>
+                        <p class="stat-value">876</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Daily Transactions</h4>
+                        <p class="stat-value">5,678</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Total Balance</h4>
+                        <p class="stat-value">$123,456,789</p>
+                    </div>
+                </div>
+            </section>
+
+<section id="createUserAccountSection" class="dashboard-section hidden">
+    <h3>Create New User Account</h3>
+    <form id="createUserForm" class="admin-form">
+        <div class="form-group">
+            <label for="newFullName">Full Name:</label>
+            <input type="text" id="newFullName" name="fullName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="newHomeAddress">Home Address:</label>
+            <textarea id="newHomeAddress" name="homeAddress" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="newEmail">Email:</label>
+            <input type="email" id="newEmail" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="newPhone">Phone:</label>
+            <input type="tel" id="newPhone" name="phone" placeholder="e.g., +1234567890" required>
+        </div>
+
+        <div class="form-group">
+            <label for="newGender">Gender:</label>
+            <select id="newGender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="newNationality">Nationality:</label>
+            <input type="text" id="newNationality" name="nationality" required>
+        </div>
+
+        <div class="form-group">
+            <label for="newOccupation">Occupation:</label>
+            <input type="text" id="newOccupation" name="occupation" required>
+        </div>
+
+        <div class="form-group">
+            <label for="newCurrency">Currency:</label>
+            <select id="newCurrency" name="currency" required>
+                <option value="">Select Currency</option>
+                <option value="USD">USD - United States Dollar</option>
+                <option value="GBP">GBP - British Pound</option>
+                <option value="CAD">CAD - Canadian Dollar</option>
+                <option value="AUD">AUD - Australian Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="newCheckingAccountNumber">Checking Account No.:</label>
+            <input type="text" id="checkingAccountNumber" name="checkingAccountNumber" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="newSavingsAccountNumber">Savings Account No.:</label>
+            <input type="text" id="savingsAccountNumber" name="savingsAccountNumber" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="newRoutingNumber">Routing Number:</label>
+            <input type="text" id="newRoutingNumber" name="routingNumber" pattern="[0-9]{9}" placeholder="e.g., 123456789" required>
+            <small>A 9-digit number for ACH/Wire transfers.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="newWireTransferLimit">Wire Transfer Limit ($):</label>
+            <input type="number" id="newWireTransferLimit" name="wireTransferLimit" min="0" value="10000.00" step="0.01" placeholder="e.g., 10000.00">
+        </div>
+
+        <div class="form-group">
+            <label for="newAchTransferLimit">ACH Transfer Limit ($):</label>
+            <input type="number" id="newAchTransferLimit" name="achTransferLimit" min="0" value="5000.00" step="0.01" placeholder="e.g., 5000.00">
+        </div>
+
+        <div class="form-group">
+            <label for="newUsername">Username:</label>
+            <input type="text" id="newUsername" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="newPassword">Password:</label>
+            <input type="password" id="newPassword" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="newProfilePicture">Profile Picture:</label>
+            <input type="file" id="newProfilePicture" name="profilePicture" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <label for="newRole">Role:</label>
+            <select id="newRole" class="form-control" required>
+                <option value="">Select Role</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Create User</button>
+    </form>
+</section>
+
+            <section id="manageUsersSection" class="dashboard-section hidden">
+                <h3>Manage User Accounts</h3>
+                <div class="user-management-controls">
+                    <input type="text" id="userSearchInput" placeholder="Search by name, email, or account number...">
+                    <button id="searchUsersBtn" class="btn btn-secondary"><i class="fas fa-search"></i> Search Users</button>
+                    <button id="refreshUsersBtn" class="btn btn-secondary"><i class="fas fa-sync-alt"></i> Refresh List</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Home Address</th>
+                                <th>Checking Acc No.</th>
+                                <th>Savings Acc No.</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr>
+                    <td colspan="8" class="loading-message" style="text-align: center;">Loading user data...</td>                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+           <section id="manageFundsSection" class="dashboard-section hidden">
+    <h3>Manage User Funds</h3>
+    <p>Credit or Debit funds from a user's checking or savings account.</p>
+
+    <form id="manageFundsForm" class="admin-form">
+        <div class="form-group">
+            <label for="fundRecipientIdentifier">User ID or Email:</label>
+            <input type="text" id="fundRecipientIdentifier" name="fundRecipientIdentifier" placeholder="Enter User ID or Email" required>
+            <button type="button" id="findUserForFundsBtn" class="btn btn-secondary btn-small"><i class="fas fa-search"></i> Lookup User</button>
+        </div>
+
+        <div id="fundUserDetails" class="user-details-display" style="display: block;">
+            <p>Search for a user to manage their funds.</p>
+        </div>
+
+        <input type="hidden" id="selectedFundUserId" name="userId"> 
+
+        <div class="form-group">
+            <label for="fundAccountType">Account Type:</label>
+            <select id="fundAccountType" name="fundAccountType" required>
+                <option value="">Select Account Type</option>
+                <option value="checking">Checking</option>
+                <option value="savings">Savings</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fundTransactionType">Transaction Type:</label>
+            <select id="fundTransactionType" name="fundTransactionType" required>
+                <option value="">Select Type</option>
+                <option value="credit">Credit (Add Funds)</option>
+                <option value="debit">Debit (Remove Funds)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="fundAmount">Amount ($):</label>
+            <input type="number" id="fundAmount" name="fundAmount" min="0.01" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fundDescription">Description:</label>
+            <textarea id="fundDescription" name="fundDescription" rows="3" required placeholder="e.g."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Process Transaction</button>
+    </form>
+</section>
+
+            <section id="manageStatusSection" class="dashboard-section hidden">
+                <h3>Manage User Account Status</h3>
+                <p>Update a user's account status (e.g., Active, Blocked, Suspended).</p>
+
+                <form id="manageStatusForm" class="admin-form">
+             <div class="form-group">
+        <label for="statusUserIdOrEmail">User ID or Email:</label>
+        <input type="text" id="statusUserIdOrEmail" name="statusUserIdOrEmail" placeholder="Enter User ID or Email" required>
+        <button type="button" id="lookupStatusUserBtn" class="btn btn-secondary btn-small"><i class="fas fa-search"></i> Lookup User</button>
+    </div>
+
+    <div id="statusUserDetails" class="user-details-display-area">
+        </div>
+
+                    
+                    <div id="foundStatusUserDetails" class="user-details-display" style="display: none;">
+                        <h4>User Details:</h4>
+                        <p><strong>Name:</strong> <span id="displayStatusFullName"></span></p>
+                        <p><strong>Email:</strong> <span id="displayStatusEmail"></span></p>
+                        <p><strong>Current Status:</strong> <span id="displayCurrentStatus"></span></p>
+                        <input type="hidden" id="selectedStatusUserId">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newAccountStatus">New Account Status:</label>
+                        <select id="newAccountStatus" name="newAccountStatus" required>
+                            <option value="">Select New Status</option>
+                            <option value="active">Active</option>
+                            <option value="blocked">Blocked</option>
+                            <option value="restricted">Restricted</option>
+                            <option value="limited">Limited</option>
+                              <option value="pending">Pending</option>
+                            <option value="suspended">Suspended</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="statusEmailNotificationMessage">Email Notification Message:</label>
+                        <textarea id="statusEmailNotificationMessage" name="statusEmailNotificationMessage" rows="4" placeholder="Optional: Message to send with status update"></textarea>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="sendStatusEmailNotification" name="sendStatusEmailNotification">
+                        <label for="sendStatusEmailNotification">Send Email Notification to User</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                </form>
+            </section>
+
+            <section id="manageTransactionsSection" class="dashboard-section hidden">
+                <h3>User Transaction Update</h3>
+                <p>Manage and update the status of pending user transactions.</p>
+
+                <div class="transaction-management-controls">
+                    <input type="text" id="transactionSearch" placeholder="Search by user, ID, or description...">
+                    <select id="transactionFilterStatus">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="failed">Failed</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="limit_exceeded">Limit Exceeded</option>
+                        <option value="processing">Processing</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <button id="refreshTransactionsBtn" class="btn btn-secondary"><i class="fas fa-sync-alt"></i> Refresh List</button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="transaction-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Account</th>
+                                <th>Amount</th>
+                                <th>Currency</th>
+                                <th>Description</th>
+                                <th>Current Status</th>
+                                <th>Initiated At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody">
+                            <tr>
+                                <td colspan="9" class="loading-message" style="text-align: center;">Loading transactions...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="generateMockTransactionSection" class="dashboard-section hidden">
+                <h3>Generate Mock Transactions</h3>
+                <p>Generate mock financial transactions for a specific user within a date range for testing and simulation purposes.</p>
+
+                <form id="generateMockTransactionForm" class="admin-form">
+                    <div class="form-group">
+                        <label for="mockTransactionUserIdOrEmail">User ID or Email:</label>
+                        <input type="text" id="mockTransactionUserIdOrEmail" name="mockTransactionUserIdOrEmail" placeholder="Enter User ID or Email" required>
+                        <button type="button" id="lookupMockUserBtn" class="btn btn-secondary btn-small"><i class="fas fa-search"></i> Lookup User</button>
+                    </div>
+                    
+                    <div id="foundMockUserDetails" class="user-details-display" style="display: none;">
+                        <h4>User Details:</h4>
+                        <p><strong>Name:</strong> <span id="displayMockFullName"></span></p>
+                        <p><strong>Email:</strong> <span id="displayMockEmail"></span></p>
+                        <p><strong>Currency:</strong> <span id="displayMockCurrency"></span></p>
+                        <input type="hidden" id="selectedMockUserId">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mockStartDate">Start Date:</label>
+                        <input type="date" id="mockStartDate" name="mockStartDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mockEndDate">End Date:</label>
+                        <input type="date" id="mockEndDate" name="mockEndDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numberOfMockTransactions">Number of Transactions to Generate (Optional):</label>
+                        <input type="number" id="numberOfMockTransactions" name="numberOfMockTransactions" min="1" max="100" placeholder="e.g., 20">
+                        <small>If left blank, a random number will be generated within the date range.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Generate Mock Transactions</button>
+                </form>
+            </section>
+
+         <section id="generateCardSection" class="dashboard-section hidden">
+    <h3>Generate Bank Card for User</h3>
+    <p>First, find the user by their username or email.</p>
+
+    <div class="form-group">
+        <label for="userLookupIdentifier">User Username or Email:</label>
+        <input type="text" id="userLookupIdentifier" placeholder="Enter username or email" class="form-control">
+        <button id="lookupUserForCardBtn" class="btn btn-primary mt-2">Lookup User</button>
+    </div>
+
+    <div id="cardManagementUserDetails" class="mt-3 card p-3" style="display: none;">
+        <h5>User Found:</h5>
+        <p><strong>Name:</strong> <span id="cardUserName"></span></p>
+        <p><strong>Email:</strong> <span id="cardUserEmail"></span></p>
+        <p><strong>User ID:</strong> <span id="cardUserId"></span></p>
+        <p><strong>Existing Cards:</strong> <span id="cardUserExistingCards">None</span></p>
+
+        <hr>
+        <h5>Generate New Card:</h5>
+        <form id="generateCardForm"> <input type="hidden" id="selectedCardUserId"> <div class="form-group">
+                <label for="newCardType">Card Type:</label>
+                <select id="newCardType" class="form-control">
+                    <option value="debit">Debit Card</option>
+                    <option value="credit">Credit Card</option>
+                </select>
+            </div>
+            <div class="form-group mt-2" id="linkedAccountGroup" style="display: none;">
+                <label for="linkedAccountIdInput">Linked Account Number (for Debit Card):</label>
+                <input type="text" id="linkedAccountIdInput" class="form-control" placeholder="e.g., 1234567890">
+                <small class="form-text text-muted">Enter the account number (checking/savings) to link this debit card.</small>
+            </div>
+            <div class="form-group mt-2">
+                <label for="newCardDesign">Card Design (optional):</label>
+                <input type="text" id="newCardDesign" placeholder="e.g., standard, gold, black" class="form-control">
+            </div>
+            <button type="submit" id="generateBankCardBtn" class="btn btn-success mt-3" disabled>Generate Card</button>
+        </form>
+
+        <div id="cardGenerationStatus" class="mt-3"></div>
+    </div>
+</section>
+
+
+           <section id="managePinSection" class="dashboard-section hidden">
+    <h3>Manage User Transfer PIN</h3>
+    <p>First, find the user by their username or email to manage their transfer PIN.</p>
+
+    <div class="form-group">
+        <label for="pinUserLookupIdentifier">User Username or Email:</label>
+        <input type="text" id="pinUserLookupIdentifier" placeholder="Enter username or email" class="form-control">
+        <button id="lookupUserForPinBtn" class="btn btn-primary mt-2">Lookup User</button>
+    </div>
+
+    <div id="pinManagementUserDetails" class="mt-3 card p-3" style="display: none;">
+        <h5>User Found:</h5>
+        <p><strong>Name:</strong> <span id="pinUserName"></span></p>
+        <p><strong>Email:</strong> <span id="pinUserEmail"></span></p>
+        <p><strong>User ID:</strong> <span id="pinUserId"></span></p>
+        <p><strong>Current PIN Status:</strong> <span id="pinUserCurrentPinStatus">Not Set</span></p>
+
+        <hr>
+        <h5>Set/Reset Transfer PIN:</h5>
+        <form id="setTransferPinForm">
+            <input type="hidden" id="selectedPinUserId"> <div class="form-group">
+                <label for="newTransferPin">New Transfer PIN:</label>
+                <input type="password" id="newTransferPin" class="form-control" maxlength="4" placeholder="Enter 4-digit PIN" disabled>
+            </div>
+            <div class="form-group mt-2">
+                <label for="confirmTransferPin">Confirm Transfer PIN:</label>
+                <input type="password" id="confirmTransferPin" class="form-control" maxlength="4" placeholder="Confirm 4-digit PIN" disabled>
+            </div>
+            <button type="submit" id="setPinBtn" class="btn btn-success mt-3" disabled>Set New PIN</button>
+        </form>
+
+        <hr>
+        <h5>Clear Existing PIN:</h5>
+        <button id="clearPinBtn" class="btn btn-danger mt-3" disabled>Clear PIN</button>
+    </div>
+
+    <div id="pinManagementStatus" class="mt-3"></div>
+</section>
+        </main>
+    </div>
+
+    <div id="editUserModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-button" id="editModalCloseButton">&times;</span>
+        <h4>Edit User Profile</h4>
+        <form id="editUserForm" class="admin-form">
+            <input type="hidden" id="editUserId" name="userId">
+
+            <div class="form-group">
+                <label for="editUsername">Username:</label>
+                <input type="text" id="editUsername" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="editFullName">Full Name:</label>
+                <input type="text" id="editFullName" name="fullName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="editEmail">Email:</label>
+                <input type="email" id="editEmail" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="editPhoneNumber">Phone:</label>
+                <input type="tel" id="editPhoneNumber" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="editAddress">Home Address:</label>
+                <textarea id="editAddress" name="homeAddress" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="editCheckingAccountNumber">Checking Account No.:</label>
+                <input type="text" id="editCheckingAccountNumber" name="checkingAccountNumber" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="editCheckingBalance">Checking Balance (₦):</label>
+                <input type="number" id="editCheckingBalance" name="checkingBalance" min="0" step="0.01" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="editSavingsAccountNumber">Savings Account No.:</label>
+                <input type="text" id="editSavingsAccountNumber" name="savingsAccountNumber" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="editSavingsBalance">Savings Balance (₦):</label>
+                <input type="number" id="editSavingsBalance" name="savingsBalance" min="0" step="0.01" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="editAccountStatus">Account Status:</label>
+                <select id="editAccountStatus" name="accountStatus" required>
+                    <option value="active">Active</option>
+                    <option value="blocked">Blocked</option>
+                    <option value="restricted">Restricted</option>
+                      <option value="pending">Pending</option>
+                    <option value="limited">Limited</option>
+                    <option value="suspended">Suspended</option>
+                </select>
+            </div>
+            <div class="form-group form-check"> <input type="checkbox" id="editIsVerified" name="isVerified" class="form-check-input">
+                <label class="form-check-label" for="editIsVerified">User Verified?</label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                <button type="button" class="btn btn-secondary mt-3 close-button" style="margin-left: 10px;">Cancel</button>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                <button type="button" class="btn btn-secondary mt-3 close-button" style="margin-left: 10px;">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <div id="transactionUpdateModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h4>Update Transaction Status</h4>
+            <form id="updateTransactionStatusForm" class="admin-form">
+                <input type="hidden" id="updateTransactionId">
+                <input type="hidden" id="updateTransactionUserId">
+                <input type="hidden" id="updateTransactionEmail">
+                <input type="hidden" id="updateTransactionAmount">
+                <input type="hidden" id="updateTransactionAccountType">
+                <input type="hidden" id="updateTransactionCurrency">
+
+                <div class="user-details-display">
+                    <p><strong>Transaction ID:</strong> <span id="displayUpdateTransactionId"></span></p>
+                    <p><strong>User:</strong> <span id="displayUpdateFullName"></span> (<span id="displayUpdateEmail"></span>)</p>
+                    <p><strong>Amount:</strong> <span id="displayUpdateAmount"></span> <span id="displayUpdateCurrency"></span> from <span id="displayUpdateAccountType"></span></p>
+                    <p><strong>Description:</strong> <span id="displayUpdateDescription"></span></p>
+                    <p><strong>Current Status:</strong> <span id="displayUpdateCurrentStatus"></span></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="newTransactionStatus">New Status:</label>
+                    <select id="newTransactionStatus" name="newTransactionStatus" required>
+                        <option value="">Select New Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="failed">Failed</option>
+                        <option value="limit_exceeded">Limit Exceeded</option>
+                        <option value="restricted">Restricted</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="adminNoteMessage">Message to User:</label>
+                    <textarea id="adminNoteMessage" name="adminNoteMessage" rows="4" placeholder="Enter a note for the user or internal record. This will be sent via email if enabled."></textarea>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="sendTransactionStatusEmail" name="sendTransactionStatusEmail">
+                    <label for="sendTransactionStatusEmail">Send Email Notification to User</label>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Update Transaction</button>
+                    <button type="button" class="btn btn-secondary close-button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking App Dashboard</title>
+    <link rel="stylesheet" href="user-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="menu-icon" id="menuIcon">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="greeting">
+                <h1>Hi, <span id="userNameGreeting">Loading...</span></h1>
+            </div>
+            <div class="profile-pic">
+                <img src="/images/default-profile.png" alt="Profile Picture" id="headerProfilePic">
+            </div>
+        </header>
+
+        <section class="accounts-section">
+            <h2>Accounts</h2>
+            <div class="account-cards-container">
+                <p class="loading-message" id="accountsLoadingMessage">Loading accounts...</p>
+            </div>
+            <div class="account-pagination">
+                </div>
+            <div class="view-all-link">
+                <a href="#">View all</a>
+            </div>
+        </section>
+
+        <section class="actions-section">
+            <div class="action-button" id="transferButton">
+                <i class="fas fa-exchange-alt"></i>
+                <p>Transfer</p>
+            </div>
+            <div class="action-button" id="depositButton">
+                <i class="fas fa-download"></i>
+                <p>Deposit</p>
+            </div>
+            <div class="action-button">
+                <i class="fas fa-dollar-sign"></i>
+                <p>Pay</p>
+            </div>
+            <div class="action-button" id="messageButton">
+                <i class="fas fa-headset"></i> <p>Customer Service</p>
+            </div>
+        </section>
+
+        <section class="bank-cards-section">
+            <h2>My Cards</h2>
+            <button class="view-cards-button" id="viewMyCardsButton">
+                <i class="fas fa-credit-card"></i> View My Cards
+            </button>
+            <div class="card-list-container" id="userCardList" style="display: none;">
+                <p class="loading-message" id="cardsLoadingMessage">Loading cards...</p>
+            </div>
+            <button id="manageCardsButton" class="action-button primary-button mt-3" style="display: none; justify-content: center; align-items: center; gap: 8px;">
+                <i class="fas fa-cogs"></i> Manage All Cards
+            </button>
+        </section>
+
+        <section class="activity-section">
+            <div class="transactions-header">
+                <h2>Transactions</h2>
+                <span class="more-options">...</span>
+            </div>
+            <div class="transaction-list">
+                <p class="loading-message" id="transactionsLoadingMessage">Loading transactions...</p>
+            </div>
+            <button class="see-more-button">See more</button>
+        </section>
+
+    </div> <div class="transfer-modal-overlay" id="transferModalOverlay">
+        <div class="transfer-modal-content">
+            <h3>Choose Transfer Type</h3>
+            <div class="transfer-options-list">
+                <button class="transfer-option" data-transfer-type="Bank to Bank">
+                    <i class="fas fa-university"></i>
+                    <p>Bank to Bank Transfer</p>
+                </button>
+                <button class="transfer-option" data-transfer-type="ACH">
+                    <i class="fas fa-exchange-alt"></i>
+                    <p>ACH Transfer</p>
+                </button>
+                <button class="transfer-option" data-transfer-type="Wire">
+                    <i class="fas fa-ethernet"></i>
+                    <p>Wire Transfer</p>
+                </button>
+                <button class="transfer-option" data-transfer-type="International Bank">
+                    <i class="fas fa-globe"></i>
+                    <p>International Bank Transfer</p>
+                </button>
+                <button class="transfer-option" data-transfer-type="Domestic Wire">
+                    <i class="fas fa-home"></i>
+                    <p>Domestic Wire Transfer</p>
+                </button>
+            </div>
+            <button class="close-modal-button" id="closeTransferModal">Close</button>
+        </div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button class="close-sidebar-button" id="closeSidebarBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="sidebar-profile">
+                <img src="/images/default-profile.png" alt="Profile Picture" class="sidebar-profile-pic">
+                <h3><span id="sidebarUserName">Loading...</span></h3>
+                <p><span id="sidebarUserEmail">Loading...</span></p>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+            </ul>
+        </nav>
+        <button class="logout-button" id="logoutButton">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+    <script src="user-dashboard.js"></script>
+</body>
+</html>

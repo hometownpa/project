@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hometown Bank PA - Make a Transfer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base styles (your existing CSS) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; /* Light grey background for contrast */
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Stronger, softer shadow */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header .logo img {
+            max-height: 55px; /* Slightly larger logo */
+            width: auto;
+        }
+
+        .header h1 {
+            /* Dark purple gradient for the title */
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Dark purple to vibrant blue */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem; /* Slightly larger for prominence */
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* Container for the form */
+        .container {
+            max-width: 650px; /* Slightly wider form */
+            margin: 40px auto;
+            padding: 35px;
+            background-color: #ffffff;
+            border-radius: 18px; /* More rounded corners */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Pronounced, soft shadow */
+            flex-grow: 1; /* Allows container to expand */
+            border: 1px solid #e0e0e0; /* Subtle border */
+        }
+
+        .container h2 {
+            color: #4a0d93; /* A deeper purple for the form section title */
+            font-size: 2.2rem; /* Larger, more impactful title */
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* Form group styling */
+        .form-group {
+            margin-bottom: 25px; /* More spacing between groups */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #444; /* Darker label text */
+            font-size: 1.05rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="email"],
+        .form-group input[type="password"], /* Added for transfer PIN */
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px; /* More padding for a softer feel */
+            border: 1px solid #ccd0d5; /* Softer border color */
+            border-radius: 10px; /* Rounded input fields */
+            font-size: 1.05rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fcfcfc; /* Slightly off-white input background */
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #6a11cb; /* Purple border on focus */
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(106, 17, 203, 0.2); /* Glowing purple shadow on focus */
+            background-color: #ffffff; /* Pure white on focus */
+        }
+
+        .form-group textarea {
+            min-height: 100px; /* Taller text area */
+        }
+
+        /* Button Group */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px; /* More space between buttons */
+            margin-top: 40px; /* More margin above buttons */
+        }
+
+        .submit-button, .back-button {
+            flex: 1;
+            padding: 16px 28px; /* Larger buttons */
+            border: none;
+            border-radius: 12px; /* More rounded buttons */
+            font-size: 1.15rem; /* Larger font size */
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            display: flex; /* For vertical centering of text/icons */
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Submit Button (Glowy Green) */
+        .submit-button {
+            background: linear-gradient(45deg, #2ecc71, #27ae60); /* Fresh green gradient */
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4); /* Green glow shadow */
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        /* Back Button (Subtle Dark Purple/Grey) */
+        .back-button {
+            background: linear-gradient(45deg, #8e44ad, #6c757d); /* Purple to grey gradient */
+            color: #ffffff;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(45deg, #6c757d, #8e44ad);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4); /* Grey glow shadow */
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.2);
+        }
+
+        /* Message Box Styling (for JS alerts) */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .message-box-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transform: translateY(-30px);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .message-box-content p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .message-box-content button {
+            background: linear-gradient(45deg, #2575fc, #6a11cb);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .message-box-content button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .message-box-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-overlay.active .message-box-content {
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+            .header .logo {
+                margin-bottom: 10px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .container {
+                margin: 20px auto;
+                padding: 25px;
+                border-radius: 12px;
+            }
+            .container h2 {
+                font-size: 2rem;
+            }
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .submit-button, .back-button {
+                padding: 14px 20px;
+                font-size: 1.05rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="https://i.imgur.com/YmC3kg3.png" alt="Hometown Bank PA Logo">
+        </div>
+        <h1 id="transferPageTitle">Make a Transfer</h1>
+    </header>
+
+    <main class="container">
+        <h2>Initiate Your Transfer</h2>
+        <form id="transferForm">
+            <div class="form-group">
+                <label for="fromAccount">From Account:</label>
+                <select id="fromAccount" name="fromAccount" required>
+                    <option value="">Loading accounts...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recipientName">Recipient Name:</label>
+                <input type="text" id="recipientName" name="recipientName" placeholder="e.g., John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="recipientAccount">Recipient Account Number:</label>
+                <input type="text" id="recipientAccount" name="recipientAccount" placeholder="e.g., 9876543210" required>
+            </div>
+
+            <div class="form-group" id="bankNameGroup">
+                <label for="bankName">Recipient Bank Name:</label>
+                <input type="text" id="bankName" name="bankName" placeholder="e.g., Another Bank" required>
+            </div>
+
+            <div class="form-group" id="routingNumberGroup">
+                <label for="routingNumber">Recipient Routing Number:</label>
+                <input type="text" id="routingNumber" name="routingNumber" placeholder="e.g., 012345678" required>
+            </div>
+
+            <div class="form-group" id="swiftCodeGroup" style="display:none;">
+                <label for="swiftCode">SWIFT/BIC Code:</label>
+                <input type="text" id="swiftCode" name="swiftCode" placeholder="e.g., BANKUS33" required>
+            </div>
+
+            <div class="form-group" id="ibanGroup" style="display:none;">
+                <label for="iban">IBAN (International Bank Account Number):</label>
+                <input type="text" id="iban" name="iban" placeholder="e.g., DE89370400440532013000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" step="0.01" min="0.01" placeholder="e.g., 100.00" required>
+            </div>
+
+            <div class="form-group">
+                <label for="memo">Memo (Optional):</label>
+                <textarea id="memo" name="memo" placeholder="Add a note for the recipient"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="transferPin">Transfer PIN:</label>
+                <input type="password" id="transferPin" name="transferPin" placeholder="Enter your 4-digit PIN" pattern="[0-9]{4}" title="Please enter a 4-digit transfer PIN" maxlength="4" required>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="submit-button">
+                    <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Make Transfer
+                </button>
+                <a href="user-dashboard.html" class="back-button">
+                    <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Cancel / Back
+                </a>
+            </div>
+        </form>
+    </main>
+
+    <div class="message-box-overlay" id="messageBoxOverlay">
+        <div class="message-box-content" id="messageBoxContentWrapper">
+            <p id="messageBoxText"></p>
+            <button id="messageBoxButton">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // IMPORTANT: Ensure this matches your backend API base URL
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const transferType = urlParams.get('type');
+            const transferPageTitle = document.getElementById('transferPageTitle');
+            const mainFormTitle = document.querySelector('.container h2');
+
+            const bankNameGroup = document.getElementById('bankNameGroup');
+            const routingNumberGroup = document.getElementById('routingNumberGroup');
+            const swiftCodeGroup = document.getElementById('swiftCodeGroup');
+            const ibanGroup = document.getElementById('ibanGroup');
+
+            const fromAccountSelect = document.getElementById('fromAccount');
+            const transferForm = document.getElementById('transferForm');
+            const submitButton = document.querySelector('.submit-button');
+
+            // NEW: Transfer PIN element
+            const transferPinInput = document.getElementById('transferPin');
+
+            // --- Custom Message Box Logic ---
+            const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxButton = document.getElementById('messageBoxButton');
+
+            function showCustomMessageBox(message, callback = null) {
+                messageBoxText.textContent = message;
+                messageBoxOverlay.classList.add('active');
+
+                // Clone button to remove all previous event listeners
+                const newMessageBoxButton = messageBoxButton.cloneNode(true);
+                messageBoxButton.parentNode.replaceChild(newMessageBoxButton, messageBoxButton);
+
+                newMessageBoxButton.addEventListener('click', () => {
+                    messageBoxOverlay.classList.remove('active');
+                    if (callback) {
+                        callback();
+                    }
+                });
+            }
+            // --- End Custom Message Box Logic ---
+
+            /**
+             * Function to retrieve user accounts from sessionStorage.
+             * This assumes user-dashboard.js has already fetched and stored them.
+             */
+            function getUserAccountsFromSession() {
+                const accountsJson = sessionStorage.getItem('userAccounts');
+                if (accountsJson) {
+                    try {
+                        return JSON.parse(accountsJson);
+                    } catch (e) {
+                        console.error("Error parsing user accounts from session storage:", e);
+                        return [];
+                    }
+                }
+                return [];
+            }
+
+            // Initialize the page
+            async function initializePage() {
+                if (transferType) {
+                    transferPageTitle.textContent = `${transferType} Transfer`;
+                    mainFormTitle.textContent = `Initiate Your ${transferType} Transfer`;
+
+                    // Set initial display for all groups to 'none' then show relevant ones
+                    bankNameGroup.style.display = 'none';
+                    routingNumberGroup.style.display = 'none';
+                    swiftCodeGroup.style.display = 'none';
+                    ibanGroup.style.display = 'none';
+
+                    // Adjust fields based on transfer type
+                    if (transferType === 'Bank to Bank' || transferType === 'ACH' || transferType === 'Domestic Wire') {
+                        bankNameGroup.style.display = 'block';
+                        routingNumberGroup.style.display = 'block';
+                    } else if (transferType === 'International Bank' || transferType === 'Wire') {
+                        bankNameGroup.style.display = 'block';
+                        swiftCodeGroup.style.display = 'block';
+                        ibanGroup.style.display = 'block';
+                    }
+                } else {
+                    transferPageTitle.textContent = 'Make a Transfer';
+                    mainFormTitle.textContent = 'Please select a transfer type from the dashboard.';
+                    document.getElementById('transferForm').style.display = 'none';
+                    showCustomMessageBox('No transfer type specified. Please return to the dashboard and select a transfer type.', () => {
+                        window.location.href = 'user-dashboard.html';
+                    });
+                    return; // Stop execution if no type
+                }
+
+                // Retrieve and populate user accounts from sessionStorage
+                const userAccounts = getUserAccountsFromSession(); // Get accounts from session storage
+                fromAccountSelect.innerHTML = '<option value="">Select your account</option>'; // Reset dropdown
+
+                if (userAccounts.length > 0) {
+                    userAccounts.forEach(account => {
+                        const option = document.createElement('option');
+                        option.value = account.id; // Use actual account ID from backend
+                        // Display format: Account Type (xLast4Digits) - $Balance.toFixed(2)
+                        option.textContent = `${account.type} (x${String(account.accountNumber).slice(-4)}) - $${parseFloat(account.balance).toFixed(2)}`;
+                        option.dataset.balance = parseFloat(account.balance); // Store balance for client-side validation
+                        option.dataset.email = account.email || 'noreply@hometownbankpa.com'; // Store email for notification, with fallback
+                        fromAccountSelect.appendChild(option);
+                    });
+                } else {
+                    // If no accounts found in session storage, it might mean:
+                    // 1. User dashboard hasn't loaded yet.
+                    // 2. No accounts were returned from the backend.
+                    fromAccountSelect.innerHTML = '<option value="">No accounts available. Please go to dashboard first.</option>';
+                    showCustomMessageBox('Could not load your accounts. Please ensure you visited the dashboard first, or log in again.', () => {
+                             window.location.href = 'user-dashboard.html';
+                    });
+                    return; // Stop execution if no type
+                }
+            }
+
+            // Call initialize page function
+            initializePage();
+
+            /**
+             * Sends the transfer data to the backend API.
+             * @param {Object} transferData - The data payload for the transfer.
+             */
+            async function sendTransferToBackend(transferData) {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    showCustomMessageBox('You are not logged in. Redirecting to login page.', () => {
+                        window.location.href = 'index.html';
+                    });
+                    return;
+                }
+
+                submitButton.disabled = true; // Disable button to prevent double submission
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Processing...'; // Show loading spinner
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/transactions/transfer`, { // Assuming this is your transfer endpoint
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(transferData)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        const finalMessage = `Your transfer of $${parseFloat(transferData.amount).toFixed(2)} to ${transferData.recipientName} is complete! Transaction ID: ${result.transactionId || 'N/A'}`;
+                        showCustomMessageBox(finalMessage, () => {
+                            window.location.href = 'user-dashboard.html'; // Redirect back to dashboard
+                        });
+
+                        // Optionally, you might want to re-fetch accounts on the dashboard
+                        // or update the sessionStorage if the backend returns the new balance.
+                        // For simplicity, redirecting to dashboard which will re-fetch.
+
+                    } else {
+                        // Handle API errors
+                        let errorMessage = 'An unknown error occurred during transfer.';
+                        if (result.message) {
+                            errorMessage = result.message; // Use error message from backend
+                        } else if (response.status === 400) {
+                            errorMessage = 'Invalid transfer data. Please check your inputs.';
+                        } else if (response.status === 401 || response.status === 403) {
+                            errorMessage = 'Session expired or unauthorized. Please log in again.';
+                            showCustomMessageBox(errorMessage, () => {
+                                localStorage.removeItem('token');
+                                localStorage.removeItem('userRole');
+                                localStorage.removeItem('userId');
+                                localStorage.removeItem('username');
+                                localStorage.removeItem('fullName');
+                                window.location.href = 'index.html';
+                            });
+                            return; // Stop further execution for auth errors
+                        } else if (response.status === 404) {
+                            errorMessage = 'Transfer service not found or invalid account details.';
+                        } else if (response.status === 500) {
+                            errorMessage = 'Server error. Please try again later.';
+                        }
+                        showCustomMessageBox(`Transfer failed: ${errorMessage}`);
+                    }
+
+                } catch (error) {
+                    console.error('Error during transfer API call:', error);
+                    showCustomMessageBox('Network error or server is unreachable. Please try again.');
+                } finally {
+                    submitButton.disabled = false; // Re-enable button
+                    submitButton.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Make Transfer'; // Reset button text
+                }
+            }
+
+
+            transferForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent default form submission
+
+                const fromAccountOption = fromAccountSelect.options[fromAccountSelect.selectedIndex];
+                // Check if a valid account was selected
+                if (!fromAccountOption || !fromAccountOption.value) {
+                    showCustomMessageBox('Please select a valid account to transfer from.');
+                    return;
+                }
+
+                const fromAccountId = fromAccountOption.value; // The actual account ID
+                const fromAccountBalance = parseFloat(fromAccountOption.dataset.balance);
+                const fromAccountType = fromAccountOption.textContent.split(' ')[0]; // e.g., "Checking"
+                const userEmail = fromAccountOption.dataset.email; // Get user's email
+
+                const recipientName = document.getElementById('recipientName').value.trim();
+                const recipientAccount = document.getElementById('recipientAccount').value.trim();
+                const bankName = bankNameGroup.style.display === 'block' ? document.getElementById('bankName').value.trim() : '';
+                const routingNumber = routingNumberGroup.style.display === 'block' ? document.getElementById('routingNumber').value.trim() : '';
+                const swiftCode = swiftCodeGroup.style.display === 'block' ? document.getElementById('swiftCode').value.trim() : '';
+                const iban = ibanGroup.style.display === 'block' ? document.getElementById('iban').value.trim() : '';
+                const amount = parseFloat(document.getElementById('amount').value);
+                const memo = document.getElementById('memo').value.trim();
+                const transferPin = transferPinInput.value.trim(); // Get the transfer PIN
+
+                // Basic client-side validation
+                if (!recipientName || !recipientAccount || isNaN(amount) || amount <= 0 || !transferPin) {
+                    showCustomMessageBox('Please fill in all required fields, ensure the amount is valid, and enter your Transfer PIN.');
+                    return;
+                }
+
+                if (!/^\d{4}$/.test(transferPin)) {
+                    showCustomMessageBox('Please enter a valid 4-digit Transfer PIN.');
+                    return;
+                }
+
+                if (transferType === 'Bank to Bank' || transferType === 'ACH' || transferType === 'Domestic Wire') {
+                    if (!bankName || !routingNumber) {
+                        showCustomMessageBox('Please provide recipient bank name and routing number for this transfer type.');
+                        return;
+                    }
+                    if (!/^\d{9}$/.test(routingNumber)) { // Basic 9-digit routing number check
+                        showCustomMessageBox('Please enter a valid 9-digit routing number.');
+                        return;
+                    }
+                } else if (transferType === 'International Bank' || transferType === 'Wire') {
+                    if (!bankName || !swiftCode || !iban) {
+                        showCustomMessageBox('Please provide recipient bank name, SWIFT/BIC, and IBAN for international transfers.');
+                        return;
+                    }
+                    if (!/^[A-Z0-9]{8,11}$/.test(swiftCode)) { // Basic SWIFT/BIC format check
+                           showCustomMessageBox('Please enter a valid SWIFT/BIC code (8 or 11 alphanumeric characters).');
+                           return;
+                    }
+                     // IBAN validation can be complex, a simple non-empty check for now.
+                     if (iban.length < 15 || iban.length > 34) { // Typical IBAN length range
+                        showCustomMessageBox('Please enter a valid IBAN (typically 15-34 characters).');
+                        return;
+                    }
+                }
+
+                // Balance check (important client-side check, but server must also validate)
+                if (amount > fromAccountBalance) {
+                    showCustomMessageBox('Insufficient funds in the selected account.');
+                    return;
+                }
+
+                // Construct the data payload for the backend
+                const transferData = {
+                    fromAccountId: fromAccountId,
+                    transferType: transferType, // Pass the type to the backend
+                    recipientName: recipientName,
+                    recipientAccount: recipientAccount,
+                    amount: amount,
+                    memo: memo,
+                    transferPin: transferPin, // **IMPORTANT: Add the transfer PIN here**
+                    // Include additional fields conditionally based on transfer type
+                    ...(bankName && { bankName: bankName }),
+                    ...(routingNumber && { routingNumber: routingNumber }),
+                    ...(swiftCode && { swiftCode: swiftCode }),
+                    ...(iban && { iban: iban })
+                };
+
+                let confirmationMessage = `Confirm your ${transferType || 'Bank'} Transfer:\n\n`;
+                confirmationMessage += `From Account ID: ${fromAccountId} (${fromAccountType})\n`;
+                confirmationMessage += `Recipient Name: ${recipientName}\n`;
+                confirmationMessage += `Recipient Account: ${recipientAccount}\n`;
+
+                if (bankName) confirmationMessage += `Recipient Bank: ${bankName}\n`;
+                if (routingNumber) confirmationMessage += `Routing Number: ${routingNumber}\n`;
+                if (swiftCode) confirmationMessage += `SWIFT/BIC: ${swiftCode}\n`;
+                if (iban) confirmationMessage += `IBAN: ${iban}\n`;
+
+                confirmationMessage += `Amount: $${amount.toFixed(2)}\n`;
+                confirmationMessage += `Memo: ${memo || 'N/A'}\n\n`;
+                confirmationMessage += `Do you want to proceed?`;
+
+                showCustomMessageBox(confirmationMessage, async () => {
+                    // Call the function to send data to the backend
+                    await sendTransferToBackend(transferData);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

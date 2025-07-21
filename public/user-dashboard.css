@@ -1,0 +1,1202 @@
+/* --- Global Styles --- */
+:root {
+    --dark-purple: #3a0050; /* Base dark purple */
+    --accent-purple: #8a2be2; /* Standard purple for accents */
+    --light-purple-text: #e0b0ff; /* Lighter purple for some text */
+    --text-white: #ffffff; /* Explicit white for amounts and icons */
+    --text-dark: #333333; /* For sections with white backgrounds like transactions */
+    --background-dark: #220030;
+    --card-background: #4a0060;
+    --border-color-dark: rgba(255, 255, 255, 0.1);
+    --border-color-light: #eeeeee; /* For white background sections */
+
+    /* New variables for light background sections like transactions */
+    --light-section-bg: #ffffff;
+    --light-section-text: #333333;
+    --light-section-border: #eeeeee;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-dark);
+    color: var(--text-white); /* Default text color is white for dark theme */
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: var(--dark-purple);
+    width: 100%;
+    max-width: 450px; /* Mobile width */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    overflow: hidden; /* Keep for mobile to clip content */
+    padding-bottom: 20px;
+    border-radius: 15px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: var(--dark-purple);
+}
+
+.menu-icon i {
+    font-size: 18px;
+    color: var(--light-purple-text);
+    cursor: pointer;
+}
+
+.greeting h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    padding-left: 10px;
+    color: var(--text-white);
+}
+
+.profile-pic img {
+    width: 36px; /* Reduced for mobile */
+    height: 36px; /* Reduced for mobile */
+    border-radius: 50%; /* Perfect circle */
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    border: 2px solid var(--accent-purple); /* Accent border */
+}
+
+/* Accounts Section */
+.accounts-section {
+    padding: 0 20px;
+    margin-top: 15px;
+}
+
+.accounts-section h2 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: var(--light-purple-text);
+}
+
+.account-cards-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.account-card {
+    background: var(--card-background);
+    color: var(--text-white);
+    border-radius: 12px;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    min-height: 80px;
+    border: 1px solid var(--border-color-dark);
+    cursor: pointer;
+
+    /* For showing/hiding with JS (mobile carousel) */
+    display: none; /* Hide by default, JS will show the active one */
+    transition: opacity 0.3s ease;
+}
+
+.account-card.active-account {
+    display: flex; /* Show active account */
+}
+
+.account-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('643x0w.jpg'); /* Ensure this path is correct */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.account-details, .account-balance {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-details {
+    align-items: flex-start;
+}
+
+.account-type {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    margin-top: 0;
+}
+
+.account-number {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-top: 0;
+}
+
+.account-balance {
+    align-items: flex-end;
+}
+
+.balance-amount {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    margin-top: 0;
+    color: var(--text-white);
+}
+
+.balance-status {
+    font-size: 11px;
+    opacity: 0.7;
+    text-align: right;
+    margin-top: 0;
+}
+
+.account-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    margin: 0 3px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: var(--accent-purple);
+    width: 10px;
+    border-radius: 3px;
+}
+
+.view-all-link {
+    text-align: right;
+    margin-top: -15px;
+    padding-right: 20px;
+}
+
+.view-all-link a {
+    color: var(--light-purple-text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 13px;
+    transition: color 0.3s ease;
+}
+.view-all-link a:hover {
+    color: var(--accent-purple);
+}
+
+/* Actions Section */
+.actions-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+    padding: 0 15px;
+}
+
+.action-button {
+    background: var(--card-background);
+    color: var(--text-white);
+    border-radius: 12px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color-dark);
+}
+
+.action-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.action-button i {
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: var(--text-white);
+}
+
+/* Transactions Section (Note: This section has a white background for better readability) */
+.activity-section { /* Your provided name */
+    background-color: var(--light-section-bg); /* Use white background for this section */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 25px;
+    padding: 20px 15px 15px;
+    position: relative;
+    z-index: 2;
+    color: var(--light-section-text); /* Use dark text for this section */
+}
+
+.transactions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.transactions-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--light-section-text);
+}
+
+.more-options {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--light-section-text);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.more-options:hover {
+    color: var(--accent-purple);
+}
+
+.transaction-list {
+    margin-bottom: 15px;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--light-section-border); /* Use light border */
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-details {
+    flex-grow: 1;
+}
+
+.transaction-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--light-section-text);
+    margin-bottom: 3px;
+}
+
+.transaction-info {
+    font-size: 11px;
+    color: #888888;
+}
+
+.transaction-amount {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--light-section-text);
+}
+
+.deposit-amount {
+    color: #4CAF50;
+}
+
+.see-more-button {
+    display: block;
+    width: 80%;
+    margin: 15px auto 0;
+    padding: 10px 15px;
+    border: 1px solid var(--accent-purple);
+    border-radius: 20px;
+    background-color: var(--light-section-bg); /* Use light section background */
+    color: var(--accent-purple);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.see-more-button:hover {
+    background-color: var(--accent-purple);
+    color: var(--text-white);
+}
+
+/* --- Mobile/Global Styles for "My Cards" Section --- */
+.bank-cards-section {
+    padding: 0 20px; /* Aligns with other sections like Accounts */
+    margin-top: 25px;
+    color: var(--text-white); /* Default text for this section */
+}
+
+.bank-cards-section h2 {
+    font-size: 16px; /* Consistent with other section headers */
+    font-weight: 500;
+    margin-bottom: 15px; /* Spacing below the title */
+    color: var(--light-purple-text); /* Light purple for section titles */
+}
+
+/* Style for the "View My Cards" button (Mobile Only) */
+.view-cards-button {
+    background-color: var(--accent-purple); /* Primary accent color */
+    color: var(--text-white);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    display: flex; /* To align icon and text */
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+    width: 100%; /* Full width within its container */
+    box-sizing: border-box; /* Include padding/border in width */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 20px; /* Space between button and card list when it appears */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Subtle shadow for button */
+}
+
+.view-cards-button:hover {
+    background-color: #6a11cb; /* Darker accent purple on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.view-cards-button i {
+    font-size: 1.2em; /* Icon size */
+}
+
+/* Container for dynamically loaded cards */
+.card-list-container {
+    background-color: var(--card-background); /* Darker background for the list area */
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Shadow for the container */
+    max-height: 400px; /* Limit height for scrollability */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    border: 1px solid var(--border-color-dark);
+    display: none; /* Initially hidden, controlled by JS */
+    flex-direction: column; /* Stack cards vertically */
+    gap: 15px; /* Space between cards */
+}
+/* This class will be added/removed by JavaScript to show/hide the card list */
+.card-list-container.show {
+    display: flex;
+}
+
+
+.card-list-container .no-cards-message,
+.card-list-container .error-message {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7); /* Lighter text for messages */
+    padding: 20px;
+    font-style: italic;
+}
+
+.card-list-container .error-message {
+    color: #dc3545; /* Red for error messages */
+    font-weight: bold;
+}
+
+/* Styling for each individual bank card item */
+.bank-card-item {
+    background: linear-gradient(45deg, var(--accent-purple), var(--card-background)); /* Gradient for cards */
+    color: var(--text-white);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--border-color-dark);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bank-card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.bank-card-item p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: var(--text-white); /* Ensure text is white */
+}
+
+.bank-card-item p strong {
+    color: var(--light-purple-text); /* Stronger text color for labels */
+    min-width: 80px; /* Align labels if needed */
+    display: inline-block; /* Keep label and value on same line */
+}
+
+.bank-card-item hr {
+    border: none;
+    border-top: 1px dashed rgba(255, 255, 255, 0.3); /* Lighter dashed line */
+    margin: 15px 0 0;
+}
+
+/* Specific card details within bank-card-item (adjust as per your JS display) */
+.bank-card-item .card-details-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bank-card-item .card-number-display {
+    font-family: 'Space Mono', monospace; /* Good for numbers */
+    font-size: 1.2em;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.bank-card-item .expiry-date,
+.bank-card-item .card-holder-name {
+    font-size: 0.85em;
+    opacity: 0.9;
+}
+
+.bank-card-item .card-status {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.bank-card-item .card-status.active { color: #4CAF50; } /* Green for active */
+.bank-card-item .card-status.blocked { color: #dc3545; } /* Red for blocked */
+.bank-card-item .card-status.inactive { color: orange; } /* Orange for inactive */
+.bank-card-item .card-status.requested { color: #007bff; } /* Blue for requested */
+
+
+/* --- Transfer Modal Styles --- */
+.transfer-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.transfer-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.transfer-modal-content {
+    background-color: var(--card-background); /* Dark purple for consistency */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    max-width: 380px; /* Adjust width as needed */
+    width: 90%;
+    text-align: center;
+    position: relative;
+    color: var(--text-white);
+    border: 1px solid var(--border-color-dark);
+    /* Initial state for animation */
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+/* Active state for modal content animation */
+.transfer-modal-overlay.active .transfer-modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.transfer-modal-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: var(--light-purple-text);
+}
+
+.transfer-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 25px;
+}
+
+.transfer-option {
+    background-color: var(--dark-purple); /* Slightly darker than card for button */
+    color: var(--text-white);
+    border: 1px solid var(--accent-purple);
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between icon and text */
+    transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    width: 100%; /* Make buttons full width */
+    text-align: left;
+}
+
+.transfer-option:hover {
+    background-color: var(--accent-purple);
+    transform: translateY(-2px);
+    border-color: var(--light-purple-text);
+}
+
+.transfer-option i {
+    font-size: 20px;
+    color: var(--text-white);
+}
+
+.transfer-option p {
+    margin: 0; /* Remove default paragraph margin */
+    flex-grow: 1; /* Allow text to take remaining space */
+}
+
+.close-modal-button {
+    background-color: transparent;
+    color: var(--light-purple-text);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.close-modal-button:hover {
+    color: var(--text-white);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* --- Sidebar Styles (Mobile) --- */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 999; /* Below the sidebar, above main content */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Sidebar Menu */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0; /* Positioned at left:0 for sliding out from left */
+    width: 280px; /* Adjust as needed */
+    height: 100%;
+    background-color: var(--light-section-bg); /* White background as per your desktop design */
+    z-index: 1000; /* On top of everything */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    transform: translateX(-100%); /* Initially slide out of view to the left */
+    transition: transform 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width */
+    color: var(--light-section-text); /* Default text color for sidebar (dark for light bg) */
+}
+
+.sidebar.active {
+    transform: translateX(0); /* Slide into view */
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-section-border); /* Lighter border for white background */
+    position: relative; /* For close button positioning */
+}
+
+.close-sidebar-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666; /* Darker color for close button */
+    cursor: pointer;
+    padding: 10px; /* Make clickable area larger */
+}
+
+.sidebar-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.sidebar-profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid var(--accent-purple); /* Accent color border */
+}
+
+.sidebar-profile h3 {
+    margin: 0;
+    font-size: 1.3em;
+    color: var(--light-section-text);
+}
+
+.sidebar-profile p {
+    margin: 5px 0 0;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    flex-grow: 1; /* Allows nav to take up available space */
+    margin-top: 20px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar-nav ul li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #555;
+    font-size: 1.1em;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav ul li a i {
+    margin-right: 15px;
+    font-size: 1.2em;
+    width: 25px; /* Fixed width for icon alignment */
+    text-align: center;
+    color: var(--accent-purple); /* Ensure icon color is consistent */
+}
+
+.sidebar-nav ul li a:hover {
+    background-color: #f0f0f0;
+    color: var(--accent-purple);
+}
+
+/* Logout Button */
+.logout-button {
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 20px;
+    background-color: #dc3545; /* Red for logout */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.logout-button i {
+    margin-right: 10px;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+/* --- Desktop View (min-width: 768px) --- */
+@media (min-width: 768px) {
+    body {
+        align-items: flex-start; /* Align container to top in desktop */
+        padding: 30px; /* Add some padding around the container */
+    }
+
+    .container {
+        max-width: 960px;
+        display: grid;
+        grid-template-columns: 1.2fr 2fr; /* Accounts/Actions/Cards on left, Transactions/Messages on right */
+        grid-template-rows: auto auto 1fr; /* Header, then row for accounts/actions/cards, then transactions/messages */
+        gap: 30px;
+        padding: 30px;
+        border-radius: 20px;
+        overflow: visible; /* To allow modals to extend beyond boundaries */
+    }
+
+    .header {
+        grid-column: 1 / 3; /* Span full width */
+        padding: 0;
+        margin-bottom: 20px;
+        justify-content: center; /* Center header content */
+        position: relative; /* For absolute positioning of profile pic */
+    }
+
+    .header .greeting {
+        flex-grow: 1; /* Allow greeting to take up space for centering */
+        text-align: center; /* Center the greeting text */
+    }
+
+    .header .profile-pic {
+        position: absolute; /* Position profile pic absolutely to the right */
+        right: 0;
+        top: 0;
+    }
+
+    .greeting h1 {
+        font-size: 32px;
+        padding-left: 0; /* Remove padding from mobile */
+    }
+
+    .profile-pic img {
+        width: 48px; /* Larger for desktop */
+        height: 48px; /* Larger for desktop */
+    }
+
+    /* Hide menu icon on desktop */
+    .menu-icon {
+        display: none;
+    }
+
+    /* For desktop, sidebar will not be a slide-out, but integrated or absent */
+    .sidebar-overlay, .sidebar {
+        display: none !important; /* Hide the sidebar and overlay on desktop */
+    }
+
+    .accounts-section {
+        grid-column: 1 / 2; /* Left column */
+        grid-row: 2 / 3; /* Second row */
+        padding: 20px;
+        margin-top: 0;
+        background-color: var(--card-background); /* Dark background for desktop accounts */
+        border-radius: 15px;
+        height: fit-content;
+        border: 1px solid var(--border-color-dark);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .accounts-section h2 {
+        font-size: 22px;
+    }
+
+    .account-card {
+        padding: 20px;
+        box-shadow: none;
+        border: none;
+        min-height: 100px;
+        /* For desktop, show all accounts, no carousel if needed */
+        display: flex;
+        opacity: 1;
+    }
+
+    .account-type {
+        font-size: 18px;
+    }
+
+    .account-number {
+        font-size: 16px;
+    }
+
+    .balance-amount {
+        font-size: 28px;
+    }
+
+    .balance-status {
+        font-size: 14px;
+    }
+
+    .account-cards-container {
+        width: 100%;
+        height: auto;
+        display: flex; /* Display all account cards */
+        flex-direction: column;
+        gap: 15px; /* Space between account cards */
+    }
+
+    .account-pagination, .view-all-link {
+        display: none; /* Hide pagination and view all link for desktop account cards as we show all at once */
+    }
+
+    .actions-section {
+        grid-column: 1 / 2; /* Left column */
+        grid-row: 3 / 4; /* Third row */
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+        margin-top: 0;
+        background-color: var(--card-background); /* Dark background for actions */
+        border-radius: 15px;
+        height: fit-content;
+        border: 1px solid var(--border-color-dark);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .action-button {
+        width: auto;
+        min-width: 150px;
+        height: auto;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        flex-direction: row;
+        justify-content: flex-start;
+        font-size: 16px;
+        border: 1px solid var(--accent-purple);
+        box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+
+    .action-button:last-child {
+        margin-bottom: 0; /* Remove margin from last button */
+    }
+
+    .action-button i {
+        font-size: 28px;
+        margin-right: 15px;
+        margin-bottom: 0;
+        color: var(--text-white);
+    }
+
+    .action-button p {
+        flex-grow: 1;
+        text-align: left;
+    }
+
+    /* Transactions Section */
+    .activity-section { /* Your provided name, keeping it */
+        grid-column: 2 / 3; /* Right column */
+        grid-row: 2 / 3; /* Second row (Adjusted to allow space for messages below it) */
+        margin-top: 0;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        background-color: var(--light-section-bg); /* White background */
+        border: 1px solid var(--border-color-light);
+        color: var(--light-section-text); /* Dark text */
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto; /* Enable scrolling for transaction list if it gets too long */
+    }
+
+    .transactions-header h2 {
+        font-size: 24px;
+        color: var(--light-section-text);
+    }
+
+    .more-options {
+        font-size: 24px;
+        color: var(--light-section-text);
+    }
+
+    .transaction-name {
+        font-size: 14px;
+        color: var(--light-section-text);
+    }
+
+    .transaction-info {
+        font-size: 14px;
+    }
+
+    .transaction-amount {
+        font-size: 17px;
+        color: var(--light-section-text);
+    }
+
+    .see-more-button {
+        width: 40%;
+        font-size: 16px;
+        padding: 14px 25px;
+    }
+
+    /* Transfer Modal Desktop Adjustments */
+    .transfer-modal-content {
+        max-width: 500px; /* Slightly wider for desktop */
+    }
+
+    .transfer-option {
+        padding: 15px 25px;
+        font-size: 18px;
+    }
+
+    /* --- Desktop Adjustments for Bank Cards Section --- */
+    .bank-cards-section {
+        grid-column: 1 / 2; /* Left column */
+        grid-row: 4 / 5; /* Place below actions */
+        margin-top: 20px; /* Space from actions section */
+        padding: 20px;
+        background-color: var(--card-background); /* Consistent dark background */
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--border-color-dark);
+        height: fit-content; /* Adjust height based on content */
+        display: block; /* Ensure the section is visible */
+    }
+
+    .bank-cards-section h2 {
+        font-size: 22px;
+        color: var(--light-purple-text);
+    }
+
+    .bank-cards-header a { /* This refers to a "view all" link, which might not be needed if all cards are shown */
+        font-size: 14px;
+    }
+
+    /* Hide the "View My Cards" button on desktop as cards are always displayed */
+    .view-cards-button {
+        display: none;
+    }
+
+    /* Ensure card list is always visible and formatted correctly on desktop */
+    .card-list-container {
+        display: flex; /* Always display cards on desktop */
+        max-height: 400px; /* Still allow scrolling if many cards */
+        background-color: transparent; /* No background for the container itself, cards have their own */
+        padding: 0; /* No padding on the container, cards handle their own */
+        box-shadow: none; /* No shadow on the container */
+        border: none; /* No border on the container */
+        flex-direction: column; /* Keep as column for stacked cards */
+        gap: 20px; /* Increased gap between cards as per your last input */
+    }
+
+    .bank-card-item {
+        padding: 25px;
+        min-height: 170px; /* Slightly larger card size as per your last input */
+    }
+
+    .card-chip {
+        width: 45px;
+        height: 35px;
+    }
+
+    .card-logo {
+        font-size: 1.8em;
+    }
+
+    .card-number {
+        font-size: 1.6em;
+    }
+
+    .card-holder-expiry {
+        font-size: 1em;
+    }
+
+    .card-type {
+        font-size: 0.9em;
+    }
+
+    /* --- Desktop Adjustments for Messages Section (Only visible on desktop) --- */
+    .messages-section {
+        grid-column: 2 / 3; /* Right column */
+        grid-row: 3 / 5; /* Spans from row 3 downwards, below transactions */
+        margin-top: 20px; /* Space from transactions section above it */
+        padding: 20px;
+        background-color: var(--light-section-bg); /* White background for messages on desktop */
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        color: var(--light-section-text); /* Dark text for white background */
+        border: 1px solid var(--border-color-light);
+        display: flex; /* Ensure it's displayed on desktop */
+        flex-direction: column;
+        overflow-y: auto; /* Enable scrolling for messages list */
+    }
+
+    .messages-section h2 {
+        color: var(--text-dark); /* Dark text for heading */
+        font-size: 24px;
+        margin-bottom: 15px; /* Added for consistency */
+    }
+
+    .message-list {
+        max-height: 250px; /* Adjust max height for desktop messages */
+        margin-bottom: 20px;
+        overflow-y: auto; /* Ensure scrolling */
+        padding-right: 5px; /* For scrollbar */
+    }
+
+    .message-item {
+        background-color: #f9f9f9; /* Lighter background for messages */
+        border: 1px solid #ddd;
+        color: var(--text-dark);
+        margin-bottom: 10px; /* Space between messages */
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .message-item.unread {
+        border-left: 5px solid var(--accent-purple);
+        padding-left: 5px; /* Adjust padding due to border */
+    }
+
+    .message-sender {
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 3px;
+    }
+
+    .message-subject {
+        font-weight: 500;
+        color: var(--text-dark);
+        margin-bottom: 5px;
+    }
+
+    .message-date {
+        font-size: 0.85em;
+        color: #777;
+        text-align: right;
+    }
+
+    .message-body {
+        font-size: 0.9em;
+        color: #555;
+        line-height: 1.4;
+    }
+
+    /* New style for customer service info within messages */
+    .customer-service-info {
+        background-color: #e6f7ff; /* Light blue background */
+        border: 1px solid #91d5ff; /* Blue border */
+        color: #0056b3; /* Darker blue text */
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1em;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .customer-service-info a {
+        color: #0056b3; /* Link color for the number */
+        text-decoration: none;
+    }
+
+    .customer-service-info a:hover {
+        text-decoration: underline;
+    }
+
+
+    .see-more-messages-button {
+        color: var(--accent-purple);
+        display: block; /* Ensure it's displayed if needed */
+        width: fit-content; /* Adjust width */
+        margin: 10px auto 0; /* Center it */
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+}
+
+/* Even larger desktop screens */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1100px;
+        gap: 40px;
+        padding: 40px;
+    }
+
+    .header .profile-pic {
+        right: 40px; /* Adjust based on new container padding */
+    }
+
+    /* Further adjustments for larger screens if needed */
+    .transactions-header h2,
+    .more-options,
+    .messages-section h2 {
+        font-size: 28px;
+    }
+    .account-type {
+        font-size: 20px;
+    }
+    .balance-amount {
+        font-size: 32px;
+    }
+    .action-button {
+        font-size: 18px;
+    }
+    .action-button i {
+        font-size: 32px;
+    }
+}
+
+/* Responsive adjustments for smaller mobile screens (optional, but good practice) */
+@media (max-width: 480px) {
+    .container {
+        border-radius: 0; /* Full width on smallest screens */
+    }
+
+    .header, .accounts-section, .actions-section,
+    .bank-cards-section, .activity-section {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .action-button {
+        width: 55px; /* Slightly smaller buttons */
+        height: 55px;
+        font-size: 10px;
+    }
+
+    .action-button i {
+        font-size: 20px;
+    }
+
+    .transfer-modal-content {
+        padding: 20px;
+    }
+}

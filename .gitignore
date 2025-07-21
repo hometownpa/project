@@ -1,0 +1,27 @@
+# .gitignore
+
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Logs and temporary files
+npm-debug.log
+*.log
+
+# Uploaded user files (if applicable, not typically part of source code)
+uploads/
+
+# Operating System Files
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# IDE specific files
+.vscode/ # VS Code
+.idea/ # WebStorm/IntelliJ
+*.iml # IntelliJ/Android Studio module files
+
+# Build outputs (if you ever add a frontend build step with Webpack/Vite/Parcel)
+/dist
+/build

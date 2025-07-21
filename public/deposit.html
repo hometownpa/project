@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hometown Bank PA - Make a Deposit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; /* Light grey background for contrast */
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Stronger, softer shadow */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header .logo img {
+            max-height: 55px; /* Slightly larger logo */
+            width: auto;
+        }
+
+        .header h1 {
+            /* Dark purple gradient for the title */
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Dark purple to vibrant blue */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem; /* Slightly larger for prominence */
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* Container for the form */
+        .container {
+            max-width: 650px; /* Slightly wider form */
+            margin: 40px auto;
+            padding: 35px;
+            background-color: #ffffff;
+            border-radius: 18px; /* More rounded corners */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Pronounced, soft shadow */
+            flex-grow: 1; /* Allows container to expand */
+            border: 1px solid #e0e0e0; /* Subtle border */
+        }
+
+        .container h2 {
+            color: #4a0d93; /* A deeper purple for the form section title */
+            font-size: 2.2rem; /* Larger, more impactful title */
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* Form group styling */
+        .form-group {
+            margin-bottom: 25px; /* More spacing between groups */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #444; /* Darker label text */
+            font-size: 1.05rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px; /* More padding for a softer feel */
+            border: 1px solid #ccd0d5; /* Softer border color */
+            border-radius: 10px; /* Rounded input fields */
+            font-size: 1.05rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fcfcfc; /* Slightly off-white input background */
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #6a11cb; /* Purple border on focus */
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(106, 17, 203, 0.2); /* Glowing purple shadow on focus */
+            background-color: #ffffff; /* Pure white on focus */
+        }
+
+        .form-group textarea {
+            min-height: 100px; /* Taller text area */
+        }
+
+        /* Button Group */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px; /* More space between buttons */
+            margin-top: 40px; /* More margin above buttons */
+        }
+
+        .submit-button, .back-button {
+            flex: 1;
+            padding: 16px 28px; /* Larger buttons */
+            border: none;
+            border-radius: 12px; /* More rounded buttons */
+            font-size: 1.15rem; /* Larger font size */
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            display: flex; /* For vertical centering of text/icons */
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Submit Button (Glowy Green) */
+        .submit-button {
+            background: linear-gradient(45deg, #2ecc71, #27ae60); /* Fresh green gradient */
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4); /* Green glow shadow */
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        /* Back Button (Subtle Dark Purple/Grey) */
+        .back-button {
+            background: linear-gradient(45deg, #8e44ad, #6c757d); /* Purple to grey gradient */
+            color: #ffffff;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(45deg, #6c757d, #8e44ad);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4); /* Grey glow shadow */
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.2);
+        }
+
+        /* Custom Message Box Styling */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .message-box-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transform: translateY(-30px);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .message-box-content p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .message-box-content button {
+            background: linear-gradient(45deg, #2575fc, #6a11cb);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .message-box-content button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .message-box-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box-overlay.active .message-box-content {
+            transform: translateY(0);
+        }
+
+        /* Specific styles for Deposit method selection */
+        .deposit-method-group {
+            margin-bottom: 30px;
+        }
+
+        .deposit-method-group .radio-option {
+            display: block;
+            margin-bottom: 15px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 15px 20px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .deposit-method-group .radio-option:hover {
+            background-color: #e9ecef;
+            border-color: #cdd2d7;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .deposit-method-group input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.3); /* Larger radio buttons */
+            accent-color: #6a11cb; /* Purple accent for radio button */
+        }
+
+        .deposit-method-group .radio-option label {
+            margin-bottom: 0;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #333;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .deposit-method-group .radio-option label i {
+            margin-right: 10px;
+            color: #2575fc; /* Icon color */
+            font-size: 1.3rem;
+        }
+
+        /* Sections that appear/disappear based on radio selection */
+        .deposit-details-section {
+            display: none; /* Hidden by default */
+            border-top: 1px solid #eee;
+            padding-top: 25px;
+            margin-top: 25px;
+        }
+
+        /* Show the section when its parent radio is selected */
+        .deposit-method-group input[type="radio"]:checked + .radio-option + .deposit-details-section {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+            .header .logo {
+                margin-bottom: 10px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .container {
+                margin: 20px auto;
+                padding: 25px;
+                border-radius: 12px;
+            }
+            .container h2 {
+                font-size: 2rem;
+            }
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .submit-button, .back-button {
+                padding: 14px 20px;
+                font-size: 1.05rem;
+            }
+            .deposit-method-group .radio-option {
+                padding: 12px 15px;
+            }
+            .deposit-method-group .radio-option label {
+                font-size: 1rem;
+            }
+            .deposit-method-group .radio-option label i {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="https://i.imgur.com/YmC3kg3.png" alt="Hometown Bank PA Logo">
+        </div>
+        <h1 id="depositPageTitle">Make a Deposit</h1>
+    </header>
+
+    <main class="container">
+        <h2 id="mainFormTitle">Deposit Funds</h2>
+        <form id="depositForm">
+            <div class="form-group">
+                <label for="toAccount">Deposit To Account:</label>
+                <select id="toAccount" required>
+                    <option value="">Select your account</option>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" step="0.01" min="0.01" placeholder="e.g., 500.00" required>
+            </div>
+
+            <div class="form-group deposit-method-group">
+                <label>Select Deposit Method:</label>
+
+                <input type="radio" id="methodAch" name="depositMethod" value="ach" checked>
+                <label for="methodAch" class="radio-option">
+                    <i class="fas fa-university"></i> ACH / Bank Transfer (Recommended)
+                </label>
+                <div id="achDetails" class="deposit-details-section">
+                    <p>Deposit funds from another bank account via ACH. This typically takes 1-3 business days.</p>
+                    <div class="form-group">
+                        <label for="fromBankName">From Bank Name:</label>
+                        <input type="text" id="fromBankName" placeholder="e.g., Your Other Bank" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fromAccountNumber">From Account Number:</label>
+                        <input type="text" id="fromAccountNumber" placeholder="e.g., 1234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fromRoutingNumber">From Routing Number:</label>
+                        <input type="text" id="fromRoutingNumber" placeholder="e.g., 012345678" required>
+                    </div>
+                </div>
+
+                <input type="radio" id="methodWire" name="depositMethod" value="wire">
+                <label for="methodWire" class="radio-option">
+                    <i class="fas fa-network-wired"></i> Wire Transfer (Faster, Fees May Apply)
+                </label>
+                <div id="wireDetails" class="deposit-details-section">
+                    <p>For wire transfers, use the following Hometown Bank PA details. Your account number is needed as the final beneficiary.</p>
+                    <div class="form-group">
+                        <label>Hometown Bank PA Wire Details:</label>
+                        <p><strong>Bank Name:</strong> Hometown Bank PA</p>
+                        <p><strong>Bank Address:</strong> 123 Main St, Anytown, PA 12345</p>
+                        <p><strong>SWIFT/BIC Code:</strong> HOMEUS33 (Example)</p>
+                        <p><strong>Routing Number (for US Wires):</strong> 012345678 (Example)</p>
+                        <p><strong>Your Hometown Bank PA Account Number:</strong> <span id="userAccountDisplay">Loading...</span></p>
+                    </div>
+                    <p><strong>Important:</strong> Ensure your bank includes **your Hometown Bank PA account number** in the wire instructions for proper credit. Fees may apply from your sending bank or intermediary banks.</p>
+                </div>
+
+                <input type="radio" id="methodCashCheck" name="depositMethod" value="cashcheck">
+                <label for="methodCashCheck" class="radio-option">
+                    <i class="fas fa-money-bill-wave"></i> Cash / Check Deposit
+                </label>
+                <div id="cashCheckDetails" class="deposit-details-section">
+                    <p>You can deposit cash or checks at any Hometown Bank PA branch or ATM.</p>
+                    <div class="form-group">
+                        <label>Branch/ATM Locator:</label>
+                        <p>Find our nearest branch or ATM: <a href="#" target="_blank">View Locations</a></p>
+                    </div>
+                    <p>For check deposits, please ensure the check is endorsed correctly.</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="memo">Memo (Optional):</label>
+                <textarea id="memo" placeholder="Add a note for this deposit"></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="submit-button">
+                    <i class="fas fa-hand-holding-usd" style="margin-right: 8px;"></i> Initiate Deposit
+                </button>
+                <a href="user-dashboard.html" class="back-button">
+                    <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Cancel / Back to Dashboard
+                </a>
+            </div>
+        </form>
+    </main>
+
+    <div class="message-box-overlay" id="messageBoxOverlay">
+        <div class="message-box-content">
+            <p id="messageBoxText"></p>
+            <button id="messageBoxButton">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // API Base URL - IMPORTANT: Replace with your actual backend API URL in production
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                // Redirect to login if not authenticated
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const depositPageTitle = document.getElementById('depositPageTitle');
+            const mainFormTitle = document.getElementById('mainFormTitle');
+            const toAccountSelect = document.getElementById('toAccount');
+            const userAccountDisplay = document.getElementById('userAccountDisplay');
+            const depositForm = document.getElementById('depositForm');
+            const submitButton = document.querySelector('.submit-button');
+
+            // --- Custom Message Box Logic (reused from other pages) ---
+            const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+            const messageBoxText = document.getElementById('messageBoxText');
+            const messageBoxButton = document.getElementById('messageBoxButton');
+
+            function showCustomMessageBox(message, callback = null) {
+                messageBoxText.textContent = message;
+                messageBoxOverlay.classList.add('active');
+
+                // Clone button to remove all previous event listeners
+                const newMessageBoxButton = messageBoxButton.cloneNode(true);
+                messageBoxButton.parentNode.replaceChild(newMessageBoxButton, messageBoxButton);
+
+                newMessageBoxButton.addEventListener('click', () => {
+                    messageBoxOverlay.classList.remove('active');
+                    if (callback) {
+                        callback();
+                    }
+                });
+            }
+            // --- End Custom Message Box Logic ---
+
+            let userAccounts = []; // Global variable to store fetched accounts
+
+            // Function to fetch user accounts
+            async function fetchUserAccounts() {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/user/dashboard`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        if (response.status === 401 || response.status === 403) {
+                            showCustomMessageBox('Session expired. Please log in again.', () => {
+                                localStorage.clear();
+                                window.location.href = 'index.html';
+                            });
+                            return [];
+                        }
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    userAccounts = data.accounts || [];
+                    return userAccounts;
+                } catch (error) {
+                    console.error('Error fetching user accounts:', error);
+                    showCustomMessageBox('Failed to load your accounts. Please try again later.');
+                    return [];
+                }
+            }
+
+            // Populate 'Deposit To Account' dropdown
+            function populateToAccountDropdown(accounts) {
+                toAccountSelect.innerHTML = '<option value="">Select account for deposit</option>';
+                if (accounts.length === 0) {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'No accounts available';
+                    option.disabled = true;
+                    toAccountSelect.appendChild(option);
+                    return;
+                }
+                accounts.forEach(account => {
+                    const option = document.createElement('option');
+                    option.value = account.id; // Use account ID as value
+                    option.textContent = `${account.type} (x${String(account.accountNumber).slice(-4)}) - $${parseFloat(account.balance).toFixed(2)}`;
+                    toAccountSelect.appendChild(option);
+                });
+
+                // Update the user's account number display for Wire Transfer instructions
+                if (accounts.length > 0) {
+                    // You might want to let the user select which account number to display here,
+                    // but for simplicity, let's just show the first checking account or any account.
+                    const checkingAccount = accounts.find(acc => acc.type === 'Checking') || accounts[0];
+                    if (checkingAccount) {
+                        userAccountDisplay.textContent = checkingAccount.accountNumber;
+                    } else {
+                        userAccountDisplay.textContent = 'N/A';
+                    }
+                }
+            }
+
+            // --- Deposit Method Logic ---
+            const depositMethodRadios = document.querySelectorAll('input[name="depositMethod"]');
+            const achDetails = document.getElementById('achDetails');
+            const wireDetails = document.getElementById('wireDetails');
+            const cashCheckDetails = document.getElementById('cashCheckDetails');
+
+            // Function to show/hide sections and manage required attributes
+            function updateDepositMethodDisplay() {
+                const selectedMethod = document.querySelector('input[name="depositMethod"]:checked').value;
+
+                // Hide all and remove required attributes
+                achDetails.style.display = 'none';
+                wireDetails.style.display = 'none';
+                cashCheckDetails.style.display = 'none';
+
+                achDetails.querySelectorAll('input').forEach(input => input.removeAttribute('required'));
+                wireDetails.querySelectorAll('input').forEach(input => input.removeAttribute('required'));
+
+
+                // Show selected section and add required attributes
+                if (selectedMethod === 'ach') {
+                    achDetails.style.display = 'block';
+                    achDetails.querySelectorAll('input').forEach(input => input.setAttribute('required', 'required'));
+                } else if (selectedMethod === 'wire') {
+                    wireDetails.style.display = 'block';
+                    // Wire details are informational, no user input required here for submission
+                    // If you later add fields for user to confirm they sent a wire, you'd add 'required' here.
+                } else if (selectedMethod === 'cashcheck') {
+                    cashCheckDetails.style.display = 'block';
+                    // Cash/Check is informational, no user input required here for submission
+                }
+            }
+
+            // Add event listeners to radio buttons
+            depositMethodRadios.forEach(radio => {
+                radio.addEventListener('change', updateDepositMethodDisplay);
+            });
+
+            // Initial call to set correct display on load
+            updateDepositMethodDisplay();
+
+
+            // Fetch accounts and initialize dropdowns/display
+            const accounts = await fetchUserAccounts();
+            populateToAccountDropdown(accounts);
+
+            // --- Form Submission ---
+            depositForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const toAccountId = toAccountSelect.value;
+                const amount = parseFloat(document.getElementById('amount').value);
+                const selectedMethod = document.querySelector('input[name="depositMethod"]:checked').value;
+                const memo = document.getElementById('memo').value.trim();
+
+                let depositData = {
+                    toAccountId: toAccountId,
+                    amount: amount,
+                    method: selectedMethod,
+                    memo: memo || undefined // Send only if memo exists
+                };
+
+                // Add method-specific data
+                if (selectedMethod === 'ach') {
+                    const fromBankName = document.getElementById('fromBankName').value.trim();
+                    const fromAccountNumber = document.getElementById('fromAccountNumber').value.trim();
+                    const fromRoutingNumber = document.getElementById('fromRoutingNumber').value.trim();
+
+                    if (!fromBankName || !fromAccountNumber || !fromRoutingNumber) {
+                        showCustomMessageBox('Please provide all details for ACH deposit.');
+                        return;
+                    }
+                    depositData.achDetails = {
+                        fromBankName,
+                        fromAccountNumber,
+                        fromRoutingNumber
+                    };
+                }
+                // For 'wire' and 'cashcheck', details are instructional, not collected via form submission here.
+                // If your backend expects a confirmation or a 'wire initiated' signal, add relevant fields.
+
+
+                // Basic client-side validation
+                if (!toAccountId || isNaN(amount) || amount <= 0) {
+                    showCustomMessageBox('Please select an account and enter a valid deposit amount.');
+                    return;
+                }
+
+                let confirmationMessage = `Confirm your Deposit:\n\n`;
+                confirmationMessage += `Deposit To: ${toAccountSelect.options[toAccountSelect.selectedIndex].textContent}\n`;
+                confirmationMessage += `Amount: $${amount.toFixed(2)}\n`;
+                confirmationMessage += `Method: ${selectedMethod.toUpperCase()}\n`;
+                if (memo) confirmationMessage += `Memo: ${memo}\n`;
+
+                if (selectedMethod === 'ach') {
+                    confirmationMessage += `\nFrom Bank: ${depositData.achDetails.fromBankName}\n`;
+                    confirmationMessage += `From Account: ${depositData.achDetails.fromAccountNumber}\n`;
+                    confirmationMessage += `From Routing: ${depositData.achDetails.fromRoutingNumber}\n`;
+                    confirmationMessage += `\nNote: ACH deposits may take 1-3 business days to clear.`;
+                } else if (selectedMethod === 'wire') {
+                    confirmationMessage += `\nNote: You will need to initiate this wire from your external bank using the provided details.`;
+                } else if (selectedMethod === 'cashcheck') {
+                    confirmationMessage += `\nNote: Please visit a branch or ATM to complete this deposit.`;
+                }
+
+                confirmationMessage += `\n\nDo you want to proceed?`;
+
+                showCustomMessageBox(confirmationMessage, async () => {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Submitting...';
+
+                    try {
+                        // IMPORTANT: Replace '/deposits/initiate' with your actual backend endpoint
+                        // This endpoint should record the deposit request and send an email.
+                        const response = await fetch(`${API_BASE_URL}/deposits/initiate`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify(depositData)
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            let successMessage = '';
+                            if (selectedMethod === 'ach') {
+                                successMessage = 'ACH deposit request submitted. Funds typically arrive in 1-3 business days.';
+                            } else if (selectedMethod === 'wire') {
+                                successMessage = 'Wire deposit details provided. Please initiate the wire from your external bank.';
+                            } else if (selectedMethod === 'cashcheck') {
+                                successMessage = 'Please visit a Hometown Bank PA branch or ATM to complete your cash/check deposit.';
+                            } else {
+                                successMessage = 'Deposit request submitted successfully!';
+                            }
+
+                            showCustomMessageBox(result.message || successMessage, () => {
+                                depositForm.reset(); // Clear the form
+                                updateDepositMethodDisplay(); // Reset section visibility
+                                window.location.href = 'user-dashboard.html'; // Redirect
+                            });
+                        } else {
+                            showCustomMessageBox(result.error || 'Failed to submit deposit request. Please try again.', () => {});
+                        }
+                    } catch (error) {
+                        console.error('Error during deposit initiation:', error);
+                        showCustomMessageBox('An error occurred. Please check your network and try again.', () => {});
+                    } finally {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = '<i class="fas fa-hand-holding-usd" style="margin-right: 8px;"></i> Initiate Deposit';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

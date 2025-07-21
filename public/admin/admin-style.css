@@ -1,0 +1,290 @@
+/* admin/admin-style.css */
+
+/* General Resets & Variables (adapt from your main style.css if applicable) */
+:root {
+    --admin-primary-color: #0056b3; /* A common blue for admin interfaces */
+    --admin-text-color: #333;
+    --admin-light-text-color: #666;
+    --admin-card-bg: #fff;
+    --admin-border-color: #ddd;
+    --admin-button-hover-bg: #004085;
+    --admin-font-family: 'Inter', sans-serif; /* Using the Inter font you linked */
+
+    /* Message states for admin */
+    --admin-message-error-bg: #fcebeb;
+    --admin-message-error-text: #cc0000;
+    --admin-message-error-border: #e0b4b4;
+
+    --admin-message-success-bg: #ebf9eb;
+    --admin-message-success-text: #008000;
+    --admin-message-success-border: #b4e0b4;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--admin-font-family);
+    color: var(--admin-text-color);
+    line-height: 1.6;
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Allows content to stack and pushes footer down if present */
+    justify-content: center; /* Vertically center content */
+    align-items: center; /* Horizontally center content */
+    min-height: 100vh; /* Ensure it takes full viewport height */
+    background-color: #f0f2f5; /* Light grey background for admin */
+    overflow-x: hidden; /* Prevent horizontal scroll on small devices */
+    position: relative; /* For any absolute positioning inside body */
+}
+
+/* Admin Login Container & Card */
+.admin-login-container {
+    flex-grow: 1; /* Allows container to take up available space, pushing footer down */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem; /* Padding around the card, especially for mobile */
+}
+
+.admin-login-card {
+    background-color: var(--admin-card-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 1.8rem 1.2rem; /* Reduced padding for a more compact look on mobile */
+    width: 100%; /* Full width on mobile */
+    max-width: 360px; /* Reduced max-width for a smaller overall footprint */
+    text-align: center;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.bank-logo img {
+    max-width: 150px; /* Slightly smaller logo */
+    height: auto;
+    margin-bottom: 1.2rem; /* Reduced margin */
+}
+
+h1 {
+    font-size: 1.8rem; /* Slightly smaller heading */
+    color: var(--admin-primary-color);
+    margin-bottom: 1.5rem; /* Space below heading */
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.2rem; /* Reduced margin */
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem; /* Slightly smaller label font */
+    color: var(--admin-light-text-color);
+    margin-bottom: 0.4rem;
+    padding-left: 0.2rem; /* Minor alignment */
+}
+
+/* --- IMPORTANT CHANGE HERE --- */
+.form-group input[type="text"], /* Changed from type="email" to type="text" */
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 0.8rem 1rem; /* Reduced input padding */
+    font-size: 0.95rem; /* Slightly smaller input font */
+    border: 1px solid var(--admin-border-color);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #f9f9f9;
+}
+
+.form-group input:focus {
+    border-color: var(--admin-primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2); /* Soft focus shadow */
+}
+
+/* For password group with potential toggle (if you add it) */
+.password-group .input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--admin-border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+}
+
+.password-group .input-wrapper input {
+    flex-grow: 1;
+    border: none; /* Input itself has no border, wrapper handles it */
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+    background-color: transparent;
+}
+
+.password-group .input-wrapper:focus-within {
+    border-color: var(--admin-primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+}
+
+.forgot-password-link {
+    display: block;
+    text-align: right;
+    font-size: 0.85rem; /* Slightly smaller font */
+    color: var(--admin-light-text-color);
+    text-decoration: none;
+    margin-top: 0.4rem; /* Reduced margin */
+    padding-right: 0.2rem;
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+    color: var(--admin-text-color);
+}
+
+/* Admin Button */
+.btn-admin-primary {
+    width: 100%;
+    padding: 0.9rem 1.2rem; /* Reduced padding */
+    border-radius: 8px;
+    font-size: 1rem; /* Kept button font size reasonable */
+    font-weight: 600;
+    cursor: pointer;
+    background-color: var(--admin-primary-color);
+    color: #fff;
+    border: 1px solid var(--admin-primary-color);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    margin-top: 1.5rem; /* Space above button */
+}
+
+.btn-admin-primary:hover {
+    background-color: var(--admin-button-hover-bg);
+    border-color: var(--admin-button-hover-bg);
+}
+
+/* Message Area Styles (as discussed previously) */
+.message {
+    padding: 10px 15px; /* Reduced padding */
+    margin-bottom: 15px; /* Reduced margin */
+    border-radius: 8px;
+    font-size: 0.9rem; /* Slightly smaller font */
+    text-align: center;
+    font-weight: 500;
+}
+
+.message.error {
+    background-color: var(--admin-message-error-bg);
+    color: var(--admin-message-error-text);
+    border: 1px solid var(--admin-message-error-border);
+}
+
+.message.success {
+    background-color: var(--admin-message-success-bg);
+    color: var(--admin-message-success-text);
+    border: 1px solid var(--admin-message-success-border);
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* For screens smaller than 480px (very small mobile devices) */
+@media (max-width: 480px) {
+    .admin-login-card {
+        padding: 1.5rem 1rem; /* Even less padding for very small screens */
+        max-width: 95%; /* Allow it to be nearly full width on very small screens */
+    }
+
+    .bank-logo img {
+        max-width: 130px; /* Smaller logo on very small screens */
+        margin-bottom: 1rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+        font-size: 0.8rem;
+    }
+
+    /* --- IMPORTANT CHANGE HERE TOO --- */
+    .form-group input[type="text"], /* Changed from type="email" to type="text" */
+    .form-group input[type="password"],
+    .password-group .input-wrapper input {
+        padding: 0.7rem 0.8rem; /* Further reduced input padding */
+        font-size: 0.85rem;
+    }
+
+    .forgot-password-link {
+        font-size: 0.75rem;
+    }
+
+    .btn-admin-primary {
+        padding: 0.8rem 1rem; /* Further reduced button padding */
+        font-size: 0.9rem;
+        margin-top: 1rem;
+    }
+
+    .message {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+}
+
+/* For screens between 481px and 768px (tablets and larger phones) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .admin-login-card {
+        padding: 2rem 1.5rem; /* Restore slightly more padding */
+        max-width: 380px; /* Keep it compact but not too small */
+    }
+
+    .bank-logo img {
+        max-width: 150px;
+        margin-bottom: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* For screens larger than 768px (desktops) */
+@media (min-width: 769px) {
+    .admin-login-card {
+        padding: 2.5rem 2rem; /* Standard desktop padding */
+        max-width: 400px; /* A good default size for desktop admin login */
+    }
+
+    .bank-logo img {
+        max-width: 180px;
+        margin-bottom: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    /* --- IMPORTANT CHANGE HERE TOO --- */
+    .form-group input[type="text"], /* Changed from type="email" to type="text" */
+    .form-group input[type="password"],
+    .password-group .input-wrapper input {
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    .btn-admin-primary {
+        padding: 1rem 1.5rem;
+        font-size: 1.05rem;
+        margin-top: 2rem;
+    }
+}
