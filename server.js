@@ -16,10 +16,10 @@ const PORT = process.env.PORT || 5000;
 // --- Middleware ---
 
 // CORS Configuration for Production
-// VERY IMPORTANT: Replace 'https://your-netlify-app-name.netlify.app' with your actual Netlify domain
+// VERY IMPORTANT: Replace 'https://hometownbankpa.netlify.app' with your actual Netlify domain
 // You might also want to include your local development URL (e.g., http://localhost:5500) during development
 const allowedOrigins = [
-    'https://your-netlify-app-name.netlify.app', // REPLACE THIS with your actual Netlify URL (e.g., https://hometownbankpa.netlify.app)
+    'https://hometownbankpa.netlify.app', // REPLACE THIS with your actual Netlify URL (e.g., https://hometownbankpa.netlify.app)
     'http://localhost:5500', // For local development with Live Server
     'http://127.0.0.1:5500' // Another common local Live Server address
     // Add other frontend domains if your app grows (e.g., if you have another admin panel)

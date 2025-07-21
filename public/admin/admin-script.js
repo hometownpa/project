@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const BACKEND_API_BASE_URL = 'http://localhost:5000'; // Replace with your deployed backend URL
+        const BACKEND_API_BASE_URL = 'https://hometownbankpa.netlify.app'; // Replace with your deployed backend URL
         const ADMIN_LOGIN_ENDPOINT = `${BACKEND_API_BASE_URL}/api/auth/admin-login`;
 
         try {

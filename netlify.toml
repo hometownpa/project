@@ -1,0 +1,9 @@
+[build]
+  publish = "public" # Your frontend publish directory
+  functions = "netlify/functions" # Tells Netlify where to find your functions
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true

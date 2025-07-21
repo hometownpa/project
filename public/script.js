@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // This ensures your frontend knows where to find the backend API,
     // especially if your frontend is being served from a different port
     // (e.g., via Live Server) than your backend (e.g., port 5000).
-    const API_BASE_URL = 'http://localhost:5000'; // Adjust this if your backend runs on a different port
+    const API_BASE_URL = 'https://hometownbankpa.netlify.app'; // Adjust this if your backend runs on a different port
 
     // Function to display messages
     function showMessage(message, type = 'error') {
